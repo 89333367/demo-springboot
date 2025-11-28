@@ -3,8 +3,21 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sunyu.example.demo.mapper.tdengine.TdengineSqlMapper">
+    <insert id="insert">
+        ${sql}
+    </insert>
+    <update id="executeSql">
+        ${sql}
+    </update>
 
     <select id="showDatabases" resultType="java.lang.String">
         show databases
+    </select>
+    <select id="showCompacts" resultType="sunyu.example.demo.pojo.tdengine.CompactInfo">
+        select compact_id id, db_name name, start_time time from information_schema.ins_compacts
+    </select>
+    <select id="showQueries" resultType="sunyu.example.demo.pojo.tdengine.QueriesInfo">
+        select kill_id id,create_time time,now,sql from performance_schema.perf_queries where sql like 'select %' order
+        by create_time
     </select>
 </mapper>
