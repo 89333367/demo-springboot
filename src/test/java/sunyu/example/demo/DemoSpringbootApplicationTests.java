@@ -46,7 +46,7 @@ class DemoSpringbootApplicationTests {
 
     @Test
     void compact() {
-        String startDay = "2023-12-31";
+        String startDay = "2023-11-26";
         String endDay = "2023-01-01";
         DateTime startTime = DateUtil.parse(startDay);
         while (true) {
