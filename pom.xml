@@ -67,6 +67,43 @@
             <artifactId>hutool-all</artifactId>
             <version>5.8.41</version>
         </dependency>
+
+        <!-- https://central.sonatype.com/artifact/com.baomidou/mybatis-plus-boot-starter/versions -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.5.14</version>
+        </dependency>
+        <!-- https://central.sonatype.com/artifact/com.baomidou/mybatis-plus-generator/versions -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>3.5.14</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://central.sonatype.com/artifact/com.baomidou/dynamic-datasource-spring-boot-starter/versions -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+            <version>4.3.1</version>
+        </dependency>
+
+        <!-- https://central.sonatype.com/artifact/com.taosdata.jdbc/taos-jdbcdriver/versions -->
+        <dependency>
+            <groupId>com.taosdata.jdbc</groupId>
+            <artifactId>taos-jdbcdriver</artifactId>
+            <!-- 数据库版本和驱动对应关系 -->
+            <!-- https://docs.taosdata.com/reference/connector/java/ -->
+            <version>3.4.0</version>
+        </dependency>
+
+        <!-- https://central.sonatype.com/artifact/com.zaxxer/HikariCP/versions -->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <!-- jdk8只能用4.0.3 -->
+            <version>4.0.3</version>
+        </dependency>
     </dependencies>
 
     <build>
