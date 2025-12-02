@@ -67,6 +67,18 @@
             <artifactId>hutool-all</artifactId>
             <version>5.8.42</version>
         </dependency>
+        <!-- https://central.sonatype.com/artifact/com.google.zxing/core/versions -->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>3.5.4</version>
+        </dependency>
+        <!-- https://central.sonatype.com/artifact/org.ttzero/eec/versions -->
+        <dependency>
+            <groupId>org.ttzero</groupId>
+            <artifactId>eec</artifactId>
+            <version>0.5.27</version>
+        </dependency>
     </dependencies>
 
     <build>
