@@ -72,13 +72,13 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.5.14</version>
+            <version>3.5.15</version>
         </dependency>
         <!-- https://central.sonatype.com/artifact/com.baomidou/mybatis-plus-generator/versions -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
-            <version>3.5.14</version>
+            <version>3.5.15</version>
             <scope>test</scope>
         </dependency>
         <!-- https://central.sonatype.com/artifact/com.baomidou/dynamic-datasource-spring-boot-starter/versions -->
