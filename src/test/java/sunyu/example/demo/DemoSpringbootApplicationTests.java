@@ -46,8 +46,8 @@ class DemoSpringbootApplicationTests {
 
     @Test
     void compact() {
-        String startDay = "2022-04-29";
-        String endDay = "2022-01-01";
+        String startDay = "2023-01-01";
+        String endDay = "2024-01-01";
         DateTime startTime = DateUtil.parse(startDay);
         while (true) {
             try {
@@ -55,7 +55,7 @@ class DemoSpringbootApplicationTests {
                 if (!compacts.isEmpty()) {
                     log.warn("compacts {}", JSONUtil.toJsonStr(compacts, jsonConfig));
                     log.warn("compacting {}", startTime.toString("yyyy-MM-dd"));
-                    ThreadUtil.sleep(1000 * 10);
+                    ThreadUtil.sleep(1000 * 60);
                     continue;
                 }
                 List<QueriesInfo> queries = tdengineSqlMapper.showQueries();
@@ -65,13 +65,13 @@ class DemoSpringbootApplicationTests {
                     ThreadUtil.sleep(1000);
                     continue;
                 }
-                String sql = StrUtil.format("COMPACT DATABASE frequent start with '{}' end with '{}'", startTime.offsetNew(DateField.DAY_OF_MONTH, -1).toString("yyyy-MM-dd"), startTime.toString("yyyy-MM-dd"));
+                String sql = StrUtil.format("COMPACT DATABASE frequent start with '{}' end with '{}'", startTime.toString("yyyy-MM-dd"), startTime.offsetNew(DateField.DAY_OF_MONTH, 1).toString("yyyy-MM-dd"));
                 log.info(sql);
                 tdengineSqlMapper.executeSql(sql);
                 if (startTime.toString("yyyy-MM-dd").equals(endDay)) {
                     break;
                 }
-                startTime = startTime.offset(DateField.DAY_OF_MONTH, -1);
+                startTime = startTime.offset(DateField.DAY_OF_MONTH, 1);
             } catch (Exception e) {
                 log.error(e.getMessage());
             }
