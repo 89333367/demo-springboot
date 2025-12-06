@@ -20,4 +20,7 @@
         select kill_id id,create_time time,now,sql from performance_schema.perf_queries where sql like 'select %' order
         by create_time
     </select>
+    <select id="getLastProtocol" resultType="java.lang.String">
+        select last(protocol) protocol from frequent.d_p where did = #{did} and protocol match '(,2601:0,)'
+    </select>
 </mapper>

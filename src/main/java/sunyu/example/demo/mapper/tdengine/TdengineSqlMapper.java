@@ -15,4 +15,6 @@ public interface TdengineSqlMapper {
     void insert(String sql);
 
     void executeSql(String sql);
+
+    List<String> getLastProtocol(String did);
 }
