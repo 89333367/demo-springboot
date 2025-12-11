@@ -23,4 +23,7 @@
     <select id="getLastProtocol" resultType="java.lang.String">
         select last(protocol) protocol from frequent.d_p where did = #{did} and protocol match '(,2601:0,)'
     </select>
+    <select id="getLastProtocolBy5500" resultType="java.lang.String">
+        select last(protocol) protocol from frequent.d_p where did = #{did} and protocol match '(,5500:)'
+    </select>
 </mapper>

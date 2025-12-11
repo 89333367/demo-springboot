@@ -4,9 +4,11 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONConfig;
+import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
@@ -21,6 +23,8 @@ import sunyu.example.demo.pojo.tdengine.CompactInfo;
 import sunyu.example.demo.pojo.tdengine.QueriesInfo;
 import uml.tech.bigdata.sdkconfig.ProtocolSdk;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -109,6 +113,37 @@ class DemoSpringbootApplicationTests {
         }
         ExcelWriter writer = ExcelUtil.getWriter("d:/tmp/常州东风经纬度-已定位.xlsx");
         writer.write(rows, true);
+        writer.close();
+    }
+
+    @Test
+    void 获取洋马设备版本号() {
+        ExcelWriter writer = ExcelUtil.getWriter("d:/tmp/洋马设备版本号.xlsx");
+        String json = FileUtil.readUtf8String("d:/tmp/imei_did.json");
+        List<Map<String, String>> l = new ArrayList<>();
+        for (JSONObject o : JSONUtil.toList(json, JSONObject.class)) {
+            Map<String, String> row = new HashMap<>();
+            row.put("IMEI", o.getStr("imei"));
+            row.put("DID", o.getStr("did"));
+            row.put("版本号", "");
+            String imei = o.getStr("imei");
+            String did = o.getStr("did");
+            log.debug("{} {}", imei, did);
+            try {
+                List<String> protocolList = tdengineSqlMapper.getLastProtocolBy5500(did);
+                if (CollUtil.isNotEmpty(protocolList)) {
+                    String protocol = protocolList.get(0);
+                    log.debug("{}", protocol);
+                    Map<String, String> map = sdk.parseProtocolString(protocol);
+                    log.debug("{}", map.get("5500"));
+                    row.put("版本号", map.get("5500"));
+                }
+            } catch (Exception e) {
+                log.error(e.getMessage());
+            }
+            l.add(row);
+        }
+        writer.write(l, true);
         writer.close();
     }
 }
