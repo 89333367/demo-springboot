@@ -70,7 +70,7 @@ class DemoSpringbootApplicationTests {
 
     void 打印树状结构(List<Entity> rootList, ExcelWriter writer) {
         for (Entity entity : rootList) {
-            log.debug("{}", StrUtil.fillBefore("", '-', entity.getInt("res_type") - 1) + entity.getStr("res_name"));
+            log.debug("{}({})", StrUtil.fillBefore("", '-', entity.getInt("res_type") - 1) + entity.getStr("res_name"), entity.getStr("id"));
             writer.writeRow(Arrays.asList(entity.getStr("id"), entity.getStr("res_name"), entity.getStr("res_url"), entity.getStr("permission_url")));
             List<Entity> children = (List<Entity>) entity.get("children");
             if (!children.isEmpty()) {
