@@ -26,4 +26,7 @@
     <select id="getLastProtocolBy5500" resultType="java.lang.String">
         select last(protocol) protocol from frequent.d_p where did = #{did} and protocol match '(,5500:)'
     </select>
+    <select id="getCanData" resultType="java.lang.String">
+        select protocol from frequent.d_p where did=#{did} and _rowts > #{ts} limit 10000
+    </select>
 </mapper>

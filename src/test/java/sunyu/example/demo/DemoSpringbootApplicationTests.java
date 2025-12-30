@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.StrUtil;
@@ -12,6 +13,7 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
+import cn.hutool.poi.excel.BigExcelWriter;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
@@ -23,10 +25,8 @@ import sunyu.example.demo.pojo.tdengine.CompactInfo;
 import sunyu.example.demo.pojo.tdengine.QueriesInfo;
 import uml.tech.bigdata.sdkconfig.ProtocolSdk;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @SpringBootTest
 class DemoSpringbootApplicationTests {
@@ -145,5 +145,47 @@ class DemoSpringbootApplicationTests {
         }
         writer.write(l, true);
         writer.close();
+    }
+
+    @Test
+    void 导出can数据() {
+        String filePath = "d:/tmp/can数据_NJHYOPWAU0000297.xlsx";
+        FileUtil.del(filePath);
+        BigExcelWriter bigWriter = ExcelUtil.getBigWriter(filePath);
+        List<Map<String, String>> l = new ArrayList<>();
+        LocalDateTime ts = LocalDateTimeUtil.parse("2000-01-01", "yyyy-MM-dd");
+        while (true) {
+            List<String> canList = tdengineSqlMapper.getCanData("NJHYOPWAU0000297", LocalDateTimeUtil.format(ts, "yyyy-MM-dd HH:mm:ss"));
+            if (CollUtil.isEmpty(canList)) {
+                break;
+            }
+            for (String protocol : canList) {
+                Map<String, String> map = sdk.parseProtocolString(protocol);
+                ts = LocalDateTimeUtil.parse(map.get("3014"), "yyyyMMddHHmmss");
+                TreeMap<String, String> mv = sdk.parseValue(map);
+                Map<String, String> newMap = new HashMap<>();
+                for (String key : mv.keySet()) {
+                    if (key.equals("3014")) {
+                        newMap.put(key + "(" + sdk.getCn(key) + ")", LocalDateTimeUtil.format(ts, "yyyy-MM-dd HH:mm:ss"));
+                        continue;
+                    }
+                    newMap.put(key + "(" + sdk.getCn(key) + ")", mv.get(key));
+                }
+                l.add(newMap);
+            }
+        }
+        Set<String> keySet = new HashSet<>();
+        for (Map<String, String> m : l) {
+            keySet.addAll(m.keySet());
+        }
+        for (Map<String, String> m : l) {
+            for (String key : keySet) {
+                if (!m.containsKey(key)) {
+                    m.put(key, "");
+                }
+            }
+        }
+        bigWriter.write(l, true);
+        bigWriter.close();
     }
 }
