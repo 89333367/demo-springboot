@@ -3,30 +3,32 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sunyu.example.demo.mapper.tdengine.TdengineSqlMapper">
-    <insert id="insert">
-        ${sql}
-    </insert>
-    <update id="executeSql">
-        ${sql}
-    </update>
-
     <select id="showDatabases" resultType="java.lang.String">
         show databases
     </select>
-    <select id="showCompacts" resultType="sunyu.example.demo.pojo.tdengine.CompactInfo">
-        select compact_id id, db_name name, start_time time from information_schema.ins_compacts
+
+    <select id="selectWorkPoints" resultType="sunyu.example.demo.pojo.tdengine.DP">
+        select `3014` p3014,`2602` p2602,`2603` p2603,`3020` p3020,`4031` p4031 from frequent.d_p
+        <where>
+            did=#{did}
+            and _rowts <![CDATA[>=]]> #{startTime} and _rowts <![CDATA[<=]]> #{endTime}
+            and `2601` = 0 and `2602` != 0 and `2603` != 0
+            and `2602` <![CDATA[>=]]> -180 and `2602` <![CDATA[<=]]> 180
+            and `2603` <![CDATA[>=]]> -90 and `2603` <![CDATA[<=]]> 90
+            <choose>
+                <when test="checkWorkStatus == true">
+                    and `4031`=1
+                </when>
+            </choose>
+        </where>
     </select>
-    <select id="showQueries" resultType="sunyu.example.demo.pojo.tdengine.QueriesInfo">
-        select kill_id id,create_time time,now,sql from performance_schema.perf_queries where sql like 'select %' order
-        by create_time
-    </select>
-    <select id="getLastProtocol" resultType="java.lang.String">
-        select last(protocol) protocol from frequent.d_p where did = #{did} and protocol match '(,2601:0,)'
-    </select>
-    <select id="getLastProtocolBy5500" resultType="java.lang.String">
-        select last(protocol) protocol from frequent.d_p where did = #{did} and protocol match '(,5500:)'
-    </select>
-    <select id="getCanData" resultType="java.lang.String">
-        select protocol from frequent.d_p where did=#{did} and _rowts > #{ts} limit 10000
+
+    <select id="selectWorkProtocol" resultType="sunyu.example.demo.pojo.tdengine.DP">
+        select protocol from frequent.d_p
+        <where>
+            did=#{did}
+            and _rowts <![CDATA[>=]]> #{startTime} and _rowts <![CDATA[<=]]> #{endTime}
+            and protocol match '(,2601:0)'
+        </where>
     </select>
 </mapper>

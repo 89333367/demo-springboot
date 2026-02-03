@@ -65,27 +65,27 @@
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>5.8.42</version>
+            <version>5.8.43</version>
         </dependency>
 
         <!-- https://central.sonatype.com/artifact/com.baomidou/mybatis-plus-boot-starter/versions -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.5.15</version>
+            <version>3.5.16</version>
         </dependency>
         <!-- https://central.sonatype.com/artifact/com.baomidou/mybatis-plus-generator/versions -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
-            <version>3.5.15</version>
+            <version>3.5.16</version>
             <scope>test</scope>
         </dependency>
         <!-- https://central.sonatype.com/artifact/com.baomidou/dynamic-datasource-spring-boot-starter/versions -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
-            <version>4.3.1</version>
+            <version>4.5.0</version>
         </dependency>
 
         <!-- https://central.sonatype.com/artifact/com.zaxxer/HikariCP/versions -->
@@ -95,28 +95,11 @@
             <!-- jdk8只能用4.0.3 -->
             <version>4.0.3</version>
         </dependency>
-
+        <!-- https://central.sonatype.com/artifact/com.taosdata.jdbc/taos-jdbcdriver/versions -->
         <dependency>
-            <groupId>sunyu.util</groupId>
-            <artifactId>util-tdengine</artifactId>
-            <!-- {taos-jdbcdriver.version}_{util.version}_{jdk.version}_{architecture.version} -->
-            <version>3.4.0_1.0_jdk8_x64</version>
-            <classifier>shaded</classifier>
-        </dependency>
-
-        <!-- https://central.sonatype.com/artifact/org.apache.poi/poi-ooxml/versions -->
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml</artifactId>
-            <version>5.5.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>uml.tech.bigdata</groupId>
-            <artifactId>sdk-config</artifactId>
-            <!-- {util.version}_{jdk.version}_{architecture.version} -->
-            <version>1.0_jdk8_x64</version>
-            <classifier>shaded</classifier>
+            <groupId>com.taosdata.jdbc</groupId>
+            <artifactId>taos-jdbcdriver</artifactId>
+            <version>3.8.1</version>
         </dependency>
     </dependencies>
 
