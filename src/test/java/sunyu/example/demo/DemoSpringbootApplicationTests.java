@@ -1,5 +1,6 @@
 package sunyu.example.demo;
 
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
@@ -33,7 +34,7 @@ class DemoSpringbootApplicationTests {
         String did = "LFS1032311100736";
         String startTime = "20260116104103";
         String endTime = "20260116153830";
-        List<DP> l = tdengineSqlMapper.selectWorkPoints(did, LocalDateTimeUtil.parse(startTime, "yyyyMMddHHmmss"), LocalDateTimeUtil.parse(endTime, "yyyyMMddHHmmss"), false);
+        List<DP> l = tdengineSqlMapper.selectWorkPoints(did, DateUtil.parse(startTime, "yyyyMMddHHmmss"), DateUtil.parse(endTime, "yyyyMMddHHmmss"), false);
         log.info("{}", l.size());
     }
 }

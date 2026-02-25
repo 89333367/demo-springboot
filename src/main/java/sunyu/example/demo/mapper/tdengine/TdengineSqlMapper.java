@@ -11,6 +11,6 @@ import java.util.List;
 
 public interface TdengineSqlMapper {
     List<String> showDatabases();
-    List<DP> selectWorkPoints(@Param("did") String did, @Param("startTime") LocalDateTime startTime, @Param("endTime") LocalDateTime endTime, @Param("checkWorkStatus") Boolean checkWorkStatus);
+    List<DP> selectWorkPoints(@Param("did") String did, @Param("startTime") Date startTime, @Param("endTime") Date endTime, @Param("checkWorkStatus") Boolean checkWorkStatus);
     List<DP> selectWorkProtocol(@Param("did") String did, @Param("startTime") LocalDateTime startTime, @Param("endTime") LocalDateTime endTime, @Param("checkWorkStatus") Boolean checkWorkStatus);
 }
